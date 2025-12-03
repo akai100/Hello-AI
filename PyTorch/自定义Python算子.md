@@ -82,3 +82,42 @@ def _(pic, box):
         反向传播逻辑（backward 函数）必须由 PyTorch 可识别的算子组成（不能直接使用第三方无梯度支持的函数，需先封装为自定义算子）。
         若算子无需训练支持，可省略该注册；未注册却用于训练时，PyTorch 会抛出错误
 
+如果你不需要训练支持，就无需使用```torch.library.register_autograd```。如果你最终使用没有自动求导注册的custom_op进行训练，我们会抛出一条错误信息。
+
+crop的梯度公式本质上是```PIL.paste``（我们将把推导过程留给读者作为练习）。让我们首先将```paste``封装到一个自定义算子中
+
+```python3
+@torch.library.custom_op("mylib::paste", mutates_args=())
+def paste(im1: torch.Tensor, im2: torch.Tensor, coord: Sequence[int]) -> torch.Tensor:
+    assert im1.device == im2.device
+    assert im1.dtype == im2.dtype
+    im1_pil = to_pil_image(im1.cpu())
+    im2_pil = to_pil_image(im2.cpu())
+    PIL.Image.Image.paste(im1_pil, im2_pil, coord)
+    return (pil_to_tensor(im1_pil) / 255.).to(im1.device, im1.dtype)
+
+@paste.register_fake
+def _(im1, im2, coord):
+    assert im1.device == im2.device
+    assert im1.dtype == im2.dtype
+    return torch.empty_like(im1)
+```
+
+现在让我们使用register_autograd来指定crop的梯度公式：
+
+```python3
+def backward(ctx, grad_output):
+    grad_input = grad_output.new_zeros(ctx.pic_shape)
+    grad_input = paste(grad_input, grad_output, ctx.coords)
+    return grad_input, None
+
+def setup_context(ctx, inputs, output):
+    pic, box = inputs
+    ctx.coords = box[:2]
+    ctx.pic_shape = pic.shape
+
+crop.register_autograd(backward, setup_context=setup_context)
+```
+
+
+
