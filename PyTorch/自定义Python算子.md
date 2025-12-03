@@ -69,4 +69,16 @@ def _(pic, box):
 
 # 2. 为crop添加训练支持
 
+使用```torch.library.register_autograd```为算子添加训练支持。相比直接使用```torch.autograd.Function```，更推荐这种方式；
+```autograd.Function```与PyTorch算子注册API的某些组合在与```torch.compile```结合使用时，可能会（并且已经导致）出现无提示的错误。
+
+        使用 torch.library.register_autograd 为 PyTorch 自定义算子添加训练支持，核心是为算子定义反向传播逻辑，使其能兼容 PyTorch 的自动求导（autograd）系统，关键要点如下：
+        核心目的：让自定义算子支持梯度计算，满足训练场景需求（替代直接使用 torch.autograd.Function，避免与 torch.compile 结合时出现隐性错误）。
+        1. 核心步骤：
+        定义 backward 函数：接收上游梯度（grad_output），计算并返回输入张量的梯度（grad_input），逻辑需基于 PyTorch 可识别的算子（或已封装的自定义算子）。
+        定义 setup_context 函数：保存正向传播时的关键信息（如输入形状、参数等），供反向传播时使用。
+        通过 算子.register_autograd(backward, setup_context=setup_context) 完成注册。
+        关键约束：
+        反向传播逻辑（backward 函数）必须由 PyTorch 可识别的算子组成（不能直接使用第三方无梯度支持的函数，需先封装为自定义算子）。
+        若算子无需训练支持，可省略该注册；未注册却用于训练时，PyTorch 会抛出错误
 
