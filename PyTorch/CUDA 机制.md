@@ -1,0 +1,2 @@
+
+torch.cuda用于设置和运行CUDA操作。它会跟踪当前选中的GPU，你分配的所有CUDA张量默认都会在该设备上创建。可以使用torch.cuda.device上下文管理器更改选中的设备。
