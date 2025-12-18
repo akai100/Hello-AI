@@ -130,7 +130,26 @@ CUDA运行时API文档列出了所有可用于添加节点和依赖项的函数�
 
 一段将工作加载到流中的代码（包括现有代码）可以用```cudaStreamBeginCapture()```和```cudaStreamEndCapture()```的调用括起来。如下所示
 
-调用cudaStreamBeginCapture()会将流置于捕获模式。
+
+
+调用```cudaStreamBeginCapture()```会将流置于捕获模式。
 
 当流处于捕获状态时，启动到该流中的工作不会被排入执行队列，而是会附加到一个正在逐步构建的内部图中。
 
+然后，通过调用```cudaStreamEndCapture()```可以返回该图，同时结束流的捕获模式。由流捕获主动构建的图被称为捕获图。
+
+
+
+流捕获可用于任何CUDA流，但```cudaStreamLegacy```（即“NULL流”）除外。请注意，它可以用于```cudaStreamPerThread```。
+
+
+
+可以使用```cudaStreamIsCapturing()```查询流是否正在被捕获。
+
+
+
+可以使用```cudaStreamBeginCaptureToGraph()```将工作捕获到现有图中。与捕获到内部图不同，工作会被捕获到用户提供的图中。
+
+##### 2.1.2.1 跨流依赖关系和事件
+
+流捕获可以处理通过```cudaEventRecord()```和```cudaStreamWaitEvent()```表达的跨流依赖关系，前提是所等待的事件已记录到同一个捕获图中。
