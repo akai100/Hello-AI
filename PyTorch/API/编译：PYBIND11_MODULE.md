@@ -49,7 +49,7 @@ PYBIND11_MODULE(custom_add_ops, m) {
 
 ```
 
-函数参数默认值
+**3. 函数参数默认值**
 
 ```c++
 // Pybind11 绑定默认参数
