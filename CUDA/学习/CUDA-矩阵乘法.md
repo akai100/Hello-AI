@@ -44,6 +44,8 @@ sgemm_naive<<<gridDim, blockDim>>>(M, N, K, alpha, A, B, beta, C);
 
 wrap，属于同一线程束的线程进行的连续内存访问可被组合起来并作为一个整体执行。这被称为全局内存合并。
 
+每个多处理器有四个 wrap 调度器，wrap 的分组基于 ```threadId```进行。
+
 ```c++
 const int x = blockIdx.x * BLOCKSIZE + (threadIdx.x / BLOCKSIZE);
 const int y = blockIdx.y * BLOCKSIZE + (threadIdx.x % BLOCKSIZE);
