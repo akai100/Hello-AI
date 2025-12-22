@@ -6,6 +6,8 @@
 
 + 无缝集成到 PyTorch 自定义算子中，是 CUDAExtension 编译后能被 Python 导入的关键；
 
+**1. 基本用法**
+
 ```c++
 // 绑定到 Python 的核心宏：PYBIND11_MODULE(模块名, 绑定对象)
 // 模块名必须和 CUDAExtension 中定义的 name 一致（如 custom_add_ops）
@@ -19,6 +21,8 @@ PYBIND11_MODULE(custom_add_ops, m) {
           pybind11::arg("a"), pybind11::arg("b"));
 }
 ```
+
+**2. 指定参数名 & 绑定类**
 
 ```c++
 // 格式：PYBIND11_MODULE(模块名, 绑定对象)
