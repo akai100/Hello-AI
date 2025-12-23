@@ -8,7 +8,7 @@
 
 + 用 CUDA 编程 GPU
 
-  + CUDA C++ 简介
+  + [CUDA C++ 简介](https://github.com/akai100/Hello-AI/blob/main/CUDA/%E7%94%A8CUDA%E7%BC%96%E7%A8%8BGPU/1.%20CUDA%20C%2B%2B%20%E7%AE%80%E4%BB%8B.md)
  
   + 编写 CUDA SIMT 内核
  
