@@ -4,7 +4,7 @@
  
   + [编程模型](https://github.com/akai100/Hello-AI/blob/main/CUDA/CUDA%20%E7%AE%80%E4%BB%8B/%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B.md)
  
-  + CUDA 平台
+  + [CUDA 平台](https://github.com/akai100/Hello-AI/blob/main/CUDA/CUDA%20%E7%AE%80%E4%BB%8B/CUDA%20%E5%B9%B3%E5%8F%B0.md)
 
 + 用 CUDA 编程 GPU
 
