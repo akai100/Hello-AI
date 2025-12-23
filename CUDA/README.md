@@ -2,7 +2,7 @@
 
   + [引言](https://github.com/akai100/Hello-AI/blob/main/CUDA/CUDA%20%E7%AE%80%E4%BB%8B/%E5%BC%95%E8%A8%80.md)
  
-  + 编程模型
+  + [编程模型](https://github.com/akai100/Hello-AI/blob/main/CUDA/CUDA%20%E7%AE%80%E4%BB%8B/%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B.md)
  
   + CUDA 平台
 
