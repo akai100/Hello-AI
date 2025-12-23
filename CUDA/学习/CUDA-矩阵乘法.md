@@ -71,3 +71,14 @@ sgemm_coalescing<<<gridDim, blockDim>>>(M, N, K, alpha, A, B, beta, C)
 ## 3. 内核3：共享内存缓存分块
 
 每个流式多核处理器（SM）都有一个共享内存。
+
+```C++
+A += cRow * BLOCKSIZE * K;
+B += cCol * BLOCKSIZE;
+C += cRow * BLOCKSIZE * N + cCol * BLOCKSIZE;
+
+float tmp = 0.0;
+
+for (int bkIdx = 0; bkIdx < K; bkIdx += BLOCKSIZE) {
+}
+```
