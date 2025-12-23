@@ -14,7 +14,7 @@
  
   + [异步执行](https://github.com/akai100/Hello-AI/blob/main/CUDA/%E7%94%A8%20CUDA%20%E7%BC%96%E7%A8%8B%20GPU/3.%20%E5%BC%82%E6%AD%A5%E6%89%A7%E8%A1%8C.md)
  
-  + 统一内存与系统内存
+  + [统一内存与系统内存](https://github.com/akai100/Hello-AI/blob/main/CUDA/%E7%94%A8%20CUDA%20%E7%BC%96%E7%A8%8B%20GPU/4.%20%E7%BB%9F%E4%B8%80%E5%86%85%E5%AD%98%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%86%85%E5%AD%98.md)
  
   + NVCC： NVIDIA CUDA 编译器
 
