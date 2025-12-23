@@ -8,9 +8,9 @@
 
 + 用 CUDA 编程 GPU
 
-  + [CUDA C++ 简介](https://github.com/akai100/Hello-AI/blob/main/CUDA/%E7%94%A8CUDA%E7%BC%96%E7%A8%8BGPU/1.%20CUDA%20C%2B%2B%20%E7%AE%80%E4%BB%8B.md)
+  + [CUDA C++ 简介](https://github.com/akai100/Hello-AI/blob/main/CUDA/%E7%94%A8%20CUDA%20%E7%BC%96%E7%A8%8B%20GPU/1.%20CUDA%20C%2B%2B%20%E7%AE%80%E4%BB%8B.md)
  
-  + 编写 CUDA SIMT 内核
+  + [编写 CUDA SIMT 内核](https://github.com/akai100/Hello-AI/blob/main/CUDA/%E7%94%A8%20CUDA%20%E7%BC%96%E7%A8%8B%20GPU/2.%20%E7%BC%96%E5%86%99%20CUDA%20SIMT%20%E5%86%85%E6%A0%B8.md)
  
   + 异步执行
  
