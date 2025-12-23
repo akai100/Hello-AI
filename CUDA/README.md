@@ -1,6 +1,6 @@
 + CUDA 简介
 
-  + 引言
+  + [引言](https://github.com/akai100/Hello-AI/blob/main/CUDA/CUDA%20%E7%AE%80%E4%BB%8B/%E5%BC%95%E8%A8%80.md)
  
   + 编程模型
  
