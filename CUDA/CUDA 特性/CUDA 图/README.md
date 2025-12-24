@@ -42,7 +42,7 @@
   + API 基础
  
   + 优化的内存重用                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-+ 设备图启动
++ [设备图启动](https://github.com/akai100/Hello-AI/blob/main/CUDA/CUDA%20%E7%89%B9%E6%80%A7/CUDA%20%E5%9B%BE/6.%20%E8%AE%BE%E5%A4%87%E5%9B%BE%E5%90%AF%E5%8A%A8.md)
 
   + 设备图创建
  
