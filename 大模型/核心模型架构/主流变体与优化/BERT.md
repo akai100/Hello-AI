@@ -3,7 +3,7 @@ BERT（Bidirectional Encoder Representations from Transformers）是 Google 于 
 
 ## 1. 核心创新
 
-**1. 双向 Transformer 编码器
+**1. 双向 Transformer 编码器**
 
 BERT 完全基于 Transformer 的编码器部分，这使其能够:
 
