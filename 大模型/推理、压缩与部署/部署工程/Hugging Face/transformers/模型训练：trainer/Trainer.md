@@ -5,42 +5,44 @@
 Trainer()
 ```
 
-+ fp16/bf16
++ model（PreTrainedModel / torch.nn.Module）
 
-+ gradient_checkpointing
+  待训练 / 微调的预训练模型（如 AutoModelForCausalLM、AutoModelForSequenceClassification 等，来自 Hugging Face）
 
-  梯度检查点
++ args（TrainingArguments）
 
-+ per_device_train_batch_size
+  训练核心配置对象，封装了批量大小、学习率、训练轮数等所有训练流程参数（单独实例化，是 Trainer 的核心依赖）
 
-  单卡 batch
++ data_collator（Callable）
 
-+ device_map
+  批处理函数（如 padding、mask）
 
-  模型设备分配
++ train_dataset（Dataset，可选，但训练必传）
 
-+ gradient_accumulation_steps
+  训练数据集，需是 Hugging Face datasets 库的 Dataset 类型，需提前做好预处理（分词、标签映射等）
 
-  梯度累积
++ eval_dataset（Dataset，可选）
 
-+ learning_rate
+  验证 / 评估数据集，用于训练过程中监控模型性能、早停等，格式与 train_dataset 一致
 
-  学习率
++ processing_class
 
-+ lr_scheduler_type
++ model_init（Callable）
 
-+ num_train_epochs
+  返回模型的函数（用于超参搜索，如 Optuna）
 
-+ save_strategy
++ compute_loss_func
 
-+ save_total_limit
++ compute_metrics
 
-+ evaluation_strategy
+  计算评估指标的函数
 
-+ report_to
++ callbacks
 
-+ logging_steps
++ optimizers（optimizer, scheduler）
 
-+ local_rank
+  自定义优化器和学习率调度器
 
-+ ddp_find_unused_parameters
++ optimizer_cls_and_kwargs
+
++ preprocess_logits_for_metrics
