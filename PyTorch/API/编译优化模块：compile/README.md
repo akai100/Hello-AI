@@ -182,3 +182,48 @@ TORCH_LOGS="output_code" python train.py
 ```
 torch._dynamo.disable()
 ```
+
+## 常见不容易被编译代码
+
+### 常见 graph break
+
+```python3
+if x.sum() > 0:   # Tensor 参与 Python 控制流
+    ...
+```
+
+```python3
+print(x)         # Python side-effect
+```
+
+```python3
+x.item()         # Tensor → Python scalar
+```
+
+```python3
+list.append(x)   # Python 数据结构
+```
+
+### 推荐写法
+
+```python3
+torch.where(cond, a, b)
+```
+
+```python3
+torch.nn.functional.*
+```
+
+```python3
+Tensor 运算替代 Python 逻辑
+```
+
+## 什么时候不该用 ```torch.compile```
+
++ 模型极小（编译时间 > 运行时间）
+
++ Python 逻辑非常复杂
+
++ 强依赖动态 shape / Python side-effect
+
++ 快速原型验证
