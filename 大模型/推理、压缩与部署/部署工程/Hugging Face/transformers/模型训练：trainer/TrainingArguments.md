@@ -26,15 +26,33 @@ TrainingArguments(output_dir, overwrite_output_dir=False, do_train=False, do_eva
 
 + overwrite_output_dir
 
+  如果为 `True`，则覆盖输出目录的内容。如果 `output_dir` 指向一个检查点目录，可以使用此选项继续训练。
+
 + do_train
+
+  是否运行训练。这个参数并不是由 [`Trainer`] 直接使用的，而是打算由你的训练/评估脚本来使用。
 
 + do_eval
 
+  是否在验证集上运行评估。如果 `eval_strategy` 不等于 `"no"`，则该参数将被设置为 `True`。此参数不是由 [`Trainer`] 直接使用的，而是供您的训练/评估脚本使用。
+
 + do_predict
+
+  是否在测试集上运行预测。这个参数并不是由 [`Trainer`] 直接使用的，而是打算由你的训练/评估脚本来使用。
 
 + eval_strategy
 
-+ prediction_loss_only
+  训练期间采用的评估策略。可能的取值包括：
+
+  + "no": 训练过程中不进行评估。
+ 
+  + "steps": 评估每 `eval_steps` 步进行一次（并记录）
+ 
+  + "epoch": 评估在每个训练周期结束时进行。
+
++ prediction_loss_only（boo，可选，默认 False）
+
+  在执行评估和生成预测时，仅返回损失值。
 
 + per_device_train_batch_size
 
@@ -51,6 +69,8 @@ TrainingArguments(output_dir, overwrite_output_dir=False, do_train=False, do_eva
 + eval_accumulation_steps
 
 + eval_delay
+
+  在首次评估之前需要等待的训练轮数或步数，具体取决于评估策略（eval_strategy）。
 
 + torch_empty_cache_steps
 
