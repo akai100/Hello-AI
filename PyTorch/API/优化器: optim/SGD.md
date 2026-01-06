@@ -199,6 +199,51 @@ scheduler = optim.lr_scheduler.CosineAnnealingLR(
 | 训练后期损失震荡 | LR 未及时降低 | 调小 scheduler 的 factor（如 0.5）或减小 patience |
 
 
+## 动量
 
+它解决了标准 SGD 收敛慢、易陷入局部最优、震荡严重的问题。
+
+**动量**是模拟物理中**惯性**的优化技巧：参数更新不仅依赖**当前梯度**，还会累积**历史梯度的方向**，让参数更新的步长在梯度方向一致的区域越来越大（加速收敛），
+在**梯度方向突变的区域**逐渐减小（减少震荡）。
+
+标准 SGD： $\theta = \theta - \eta \cdot ∇L(\theta)$
+
+动量 SGD：引入动量系数 $\gamma$，累积历史梯度的加权和，解决上述问题。
+
+
+1、速度更新：累积历史速度和当前梯度， $v_t = \gamma \cdot v_{t-1} + ∇L(\theta_t)$
+
+2、参数更新：沿着速度方向更新参数， $\theta_{t+1}=\theta_t - \gamma \cdot v_t$
+
+
+### 带阻尼的动量
+
+ $v_t=\gamma \cdot v_{t-1}+(1-dampening)\cdot∇L(\theta_t)$
+
+
+ ### Nesterov 加速梯度（NAG）
+
+ 这是动量的进阶版本，称为前瞻动量，公式为：
+ 
+ 1. 速度更新： $v_t = \gamma \cdot v_{t-1} + ∇L(\theta_t - \eta \cdot \gamma \cdot v_{t-1})$
+
+ 2. 参数更新： $\theta_{t+1}=\theta_t - \eta \cdot v_t$
+
+**核心改进**：计算梯度时，先沿着历史速度方向走一步 $(\theta_t - \eta \cdot \gamma \cdot v_{t-1})$，再计算梯度，相当于**提前预判**，收敛速度比基本动量更快。
+
+## 权重衰减
+
+通过在损失函数中添加参数的 L2 范数惩罚项，迫使模型参数尽可能小，从而提高模型的泛化能力。
+
++ 权重衰减 ≠ Dropout：权重衰减是通过惩罚参数大小防止过拟合；Dropout 是通过随机丢弃神经元防止过拟合。
+
++ 权重衰减 ≠ 学习率衰减：权重衰减是对参数的惩罚；学习率衰减是对参数更新步长的调整。
+
+标准损失函数： $L(\theta)=\frac{1}{N}\sum_{i=1}^{N}{l(y_i, y_i'}$
+
+带权重衰减的损失函数： $L_{reg}(\theta)=L(\theta)+\frac{\lambda}{2}||\theta||_2^2$
+
+
+ 
 
   
