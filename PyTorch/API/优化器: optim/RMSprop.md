@@ -66,7 +66,7 @@ $E[g^2]_t=\alpha \cdot E[g^2]_{t-1}+(1-\alpha) \cdot f_{t}^{2}$
 
 **3. 无中心化时的均方根（默认）**
 
- $std_t=\sqrt{E[g^2]_t+\eps}$
+ $std_t=\sqrt{E[g^2]_t+\epsilon}$
 
 **4. 动量更新**
 
