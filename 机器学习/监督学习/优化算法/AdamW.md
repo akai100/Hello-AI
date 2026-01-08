@@ -26,7 +26,7 @@ $$g_t=∇L(\theta_t)+\lambda \theta_t$$
 
 然后送进 Adam：
 
-$$\theta_{t+1}=\theta_t-\eta\frac{\hat{m}_t}{\sqrt{\hat{v}_t}+\eps}$$
+$$\theta_{t+1}=\theta_t-\eta\frac{\hat{m}_t}{\sqrt{\hat{v}_t}+\epsilon}$$
 
 **❗ 问题本质**
 
