@@ -47,6 +47,64 @@ rank(A,B) = r（固定）
 训练中做 LoRA 版的“结构剪枝”
 ```
 
+## AdaLoRA 改进
+
+AdaLoRA 的核心改进在于 rank 自适应
+
+**1. 动态分配rank:** 训练过程中对每一层的 rank 进行调整
+
+**2. 重要性驱动：** rank 增减根据梯度信息或参数重要性
+
+**3. 总参数预算控制：** rank 调整满足总参数不超过目标
+
+数学公式：
+
+$$\Delta W_l=A_lB_l, r_l=r_{init}\cdot s_l$$
+
++ $l$: 第 $l$层
+
++ $r_l$: 该层的动态 rank
+
++ $s_l$：重要系数（0~1）
+
++ $sum_{l}r_l <= r_{totol}$
+
+AdaLoRA 用指数滑动平均（EMA）来平滑 rank 更新，防止训练不稳定：
+
+$$s_{l}^{(t)}=(1-\beta_1)\cdot importance_{l}^{(t)} + \beta_1 \cdot s_{l}^{t-a}$$
+
+其中 $\beta_1$ 是动量参数。
+
+## 实现逻辑
+
+### 权重包装
+
+1. 冻结原始权重 $W$
+
+2. 插入 LoRA 增量层 $A,B$
+
+3. 初始 rank 为 r_init，每层权重增量矩阵初始化
+
++ $A \~ N(0, \frac{1}{r})$
++ $B \~ N(0, \frac{1}{r})$
+
+### rank 自适应策略
+
+训练中不断更新每一层 rank:
+
+1. 计算重要性指标：
+
+   + 可以用 **梯度范数**或**权重更新幅度**
+     $importance_l=||\Delta W_l||$_F
+
+2. 使用 EMA 平滑
+
+$$s_{l}^{t}=\beta_1 s_{l}^{t-1}+(1-\beta_1)importance_{l}^{(t)}$$
+
+3. 根据目标总 rank 调整每层 rank:
+
+$$r_{l}^{t}=clip(r_{min}, r_{max}, r_{total} \cdot \frac{s_{l}{(t)}}{\sum_{k}{s_{k}^{(t)}}})$$
+
 ## 怎么“调 rank”
 
 ### 引入 rank importance score（核心）
